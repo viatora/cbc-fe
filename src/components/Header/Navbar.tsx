@@ -1,9 +1,9 @@
 const navItemClasses = "hover:text-gray-400";
 
 export default function Navbar() {
-    return (
-        <nav>
-            <ul className="flex space-x-4 list-none">
+  return (
+    <nav>
+      {/* <ul className="flex space-x-4 list-none">
                 <li>
                     <a href="/" className={navItemClasses}>Home</a>
                 </li>
@@ -13,7 +13,7 @@ export default function Navbar() {
                 <li>
                     <a href="/contact" className={navItemClasses}>Contact</a>
                 </li>
-            </ul>
-        </nav>
-    );
-};
+            </ul> */}
+    </nav>
+  );
+}
