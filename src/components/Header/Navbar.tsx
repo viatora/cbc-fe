@@ -1,4 +1,4 @@
-const navItemClasses = "hover:text-gray-400";
+// const navItemClasses = "hover:text-gray-400";
 
 export default function Navbar() {
   return (
