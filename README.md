@@ -1,2 +1,2 @@
-# viatora-template-react
-Viatora's template repo for React/Typescript websites using Vite
+# Parallax Testing Branch
+This branch is used to test parallax features.
