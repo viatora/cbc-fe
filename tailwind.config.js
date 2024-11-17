@@ -1,12 +1,32 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}", // Adjust the paths according to your project structure
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        "spin-pulse": "spin-pulse 10s linear infinite",
+      },
+      keyframes: {
+        "spin-pulse": {
+          "0%": { transform: "rotateY(0deg) scale(1)" },
+          "50%": { transform: "rotateY(180deg) scale(0.95)" },
+          "100%": { transform: "rotateY(360deg) scale(1)" },
+        },
+      },
+    },
   },
-  plugins: [],
-}
-
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".transform-style-3d": {
+          "transform-style": "preserve-3d",
+        },
+        ".backface-hidden": {
+          "backface-visibility": "hidden",
+        },
+      });
+    },
+  ],
+};
