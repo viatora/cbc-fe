@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.damion-regular {
+  font-family: "Damion", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Blanch-Caps";
+  src: url("./assets/fonts/Blanch-Caps.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "GoudyStd-Heavyface";
+  src: url("./assets/fonts/GoudyStd-Heavyface.woff2") format("woff2");
+}
