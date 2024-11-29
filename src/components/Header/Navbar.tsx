@@ -20,9 +20,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="relative">
+    <nav className="md:relative ">
       {/* Hamburger button (visible on small screens) */}
-      <div className="md:hidden">
+      <div className="md:hidden absolute right-6 top-5">
         <button
           onClick={toggleMenu}
           className="text-white focus:outline-none"
@@ -35,7 +35,7 @@ export default function Navbar() {
       <ul
         className={`${
           isMenuOpen ? "block" : "hidden"
-        } absolute top-full right-0 w-full bg-transparent md:justify-center md:flex md:gap-[10vw] list-none md:static text-center`}
+        } absolute h-full left-0 w-full bg-transparent md:justify-center md:flex md:gap-[10vw] list-none md:static text-center mt-10 md:mt-0`}
       >
         {menuLinks.map((menuLink) => (
           <li
