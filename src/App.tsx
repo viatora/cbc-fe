@@ -5,16 +5,24 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import "./App.css";
+import Tour from "./pages/Tour";
+import Music from "./pages/Music";
+import Merch from "./pages/Merch";
 
 function App() {
   return (
     <Router>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <main className="md:min-h-[calc(100vh-3rem)] min-h-[calc(100vh-8rem)]">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/tour" element={<Tour />} />
+          <Route path="/music" element={<Music />} />
+          <Route path="/merch" element={<Merch />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
       <Footer />
     </Router>
   );
