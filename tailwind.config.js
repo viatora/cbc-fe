@@ -1,10 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      colors: {
+        "clarks-orange": "#FEBC12",
+        "clarks-red": "#C14627",
+      },
+      fontFamily: {
+        jost: ["Jost", "sans-serif"],
+        blanch: ["Blanch-Caps"],
+        damion: ["Damion", "serif"],
+        goudy: ["GoudyStd-Heavyface"],
+      },
       animation: {
         "spin-pulse": "spin-pulse 10s linear infinite",
         "flicker-1": "flicker 1.5s steps(2) infinite",
@@ -17,7 +25,7 @@ module.exports = {
           "50%": { transform: "rotateY(180deg) scale(0.95)" },
           "100%": { transform: "rotateY(360deg) scale(1)" },
         },
-        "flicker": {
+        flicker: {
           "0%, 100%": { opacity: "0" },
           "50%": { opacity: "1" },
         },
