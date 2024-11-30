@@ -18,15 +18,15 @@ export default function Home() {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      <video
-        ref={videoRef}
-        className="absolute top-0 left-0 min-h-full w-auto object-cover"
-        src={teaserVideo}
-        autoPlay
-        loop
-        muted={muted}
-      />
+      <div className="fixed top-0 left-0 w-full h-full -z-10">
+        <video
+          ref={videoRef}
+          className="absolute top-0 left-0 min-h-full w-auto object-cover"
+          src={teaserVideo}
+          autoPlay
+          loop
+          muted={muted}
+        />
       <div className="absolute top-[calc(50vh-12rem)] left-[calc(50vw-19.2rem)] -translate-x-1/2 -translate-y-1/2 h-96 w-[38.4rem] z-10 transform-style-3d hidden md:block animate-spin-pulse">
         <img
           src={hologramNoLight}
