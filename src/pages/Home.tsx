@@ -18,7 +18,9 @@ export default function Home() {
   };
 
   return (
-      <div className="fixed top-0 left-0 w-full h-full -z-10">
+    <div className="relative min-h-full">
+      {/* Background video container */}
+      <div className="fixed inset-0 -z-10">
         <video
           ref={videoRef}
           className="absolute top-0 left-0 min-h-full w-auto object-cover"
@@ -27,6 +29,9 @@ export default function Home() {
           loop
           muted={muted}
         />
+      </div>
+
+      {/* Hologram */}
       <div className="absolute top-[calc(50vh-12rem)] left-[calc(50vw-19.2rem)] -translate-x-1/2 -translate-y-1/2 h-96 w-[38.4rem] z-10 transform-style-3d hidden md:block animate-spin-pulse">
         <img
           src={hologramNoLight}
@@ -54,8 +59,9 @@ export default function Home() {
         />
       </div>
 
+      {/* Mute button */}
       <button
-        className="absolute bottom-5 right-5 z-20 text-white bg-transparent border-none cursor-pointer focus:outline-none"
+        className="fixed bottom-5 right-5 z-20 text-white bg-transparent border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-clarks-orange focus:ring-offset-2 focus:ring-offset-transparent rounded-full p-1 hover:text-clarks-orange"
         onClick={toggleMute}
       >
         {muted ? <FaVolumeMute size={24} /> : <FaVolumeUp size={24} />}
