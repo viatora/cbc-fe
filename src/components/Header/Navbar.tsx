@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
@@ -7,6 +6,11 @@ interface MenuRoute {
   path: string;
   textEN: string;
   textFR: string;
+}
+
+interface NavbarProps {
+  isMenuOpen: boolean;
+  setIsMenuOpen: (isMenuOpen: boolean) => void;
 }
 
 const menuRoutes: MenuRoute[] = [
@@ -18,7 +22,7 @@ const menuRoutes: MenuRoute[] = [
   { path: "/contact", textEN: "Contact", textFR: "Contact" },
 ];
 
-export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
+export default function Navbar({ isMenuOpen, setIsMenuOpen }: NavbarProps) {
   // const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isFrench } = useLanguage();
 
