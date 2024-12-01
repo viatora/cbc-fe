@@ -1,71 +1,35 @@
-import { useScroll, animated, useSpring } from "react-spring";
-import ScrollVideo from "../components/ScrollVideo";
-import blackLogo from "../assets/images/cbc-black-logo.png";
-import yesDay from "../assets/images/cbc-yes-day-cover.jpg";
+import { useLanguage } from "../context/LanguageContext";
+import { Page } from "../utils/types";
+import Carousel from "../components/Carousel/Carousel";
 
-export default function Home() {
-  // Use useScroll to get the scrollY position
-  const { scrollYProgress } = useScroll();
+import argentic from "../assets/images/carousel/argentic.jpg";
+import posing from "../assets/images/carousel/posing.jpg";
+import leaving from "../assets/images/carousel/leaving.jpg";
+import yesDay from "../assets/images/carousel/yesday.jpg";
 
-  // Create springs for elements
-  const logoSpring = useSpring({
-    opacity: scrollYProgress.to([0.01, 0.02], [0, 1]), // Logo fades in early in the scroll
-    transform: scrollYProgress
-      .to([0.01, 0.02], [50, 0])
-      .to((y) => `translateY(${y}px)`),
-  });
+const carouselImages = [argentic, posing, leaving, yesDay];
 
-  const headingSpring = useSpring({
-    opacity: scrollYProgress.to([0.03, 0.04], [0, 1]), // Heading fades in a bit later
-    transform: scrollYProgress
-      .to([0.03, 0.04], [50, 0])
-      .to((y) => `translateY(${y}px)`),
-  });
+const french: Page = {
+  title: "Bio",
+  content:
+    "Clark's Bowling Club est un groupe de funk/pop qui fait vibrer les dancefloors lyonnais dans une ambiance disco-funk remise au goût du jour. À la croisée de Deluxe et Jungle, ils ont partagé la scène avec des artistes de renom tels que Guts, Vulfpeck, Dabeull, Imanbek, Peter Bence, Arnaud Rebotini, Etienne de Crécy... En 2023, le groupe a été sélectionné par le programme d'accompagnement Ninkasi Musik Lab.",
+};
 
-  const ctaSpring = useSpring({
-    opacity: scrollYProgress.to([0.1, 0.11], [0, 1]), // CTA fades in last
-    transform: scrollYProgress
-      .to([0.1, 0.11], [50, 0])
-      .to((y) => `translateY(${y}px)`),
-  });
+const english: Page = {
+  title: "About",
+  content:
+    "Clark's Bowling Club is a 6-piece funk/pop band based in Lyon, France. Inspired by the likes of Jungle and Deluxe, their music brings a modern twist to disco-funk, hip-hop, and jazz genres, breathing new life into the vibrant music scene. They have shared the stage with acclaimed artists including Guts, Dabeull, Imanbek, Vulfpeck, Peter Bence, Arnaud Rebotini, Etienne de Crécy, and many more. Rising to prominence with their unique spin on funk, Clark's Bowling Club has achieved notable recognition, notably being selected for the prestigious Ninkasi Musik Lab program in 2023.",
+};
+
+export default function About() {
+  const { isFrench } = useLanguage();
+  const pageContent = isFrench ? french : english;
 
   return (
-    <main className="relative overflow-hidden">
-      {/* Scroll Video Background */}
-      <ScrollVideo
-        video="./src/assets/intro.mp4"
-        scrollYProgress={scrollYProgress}
-      />
-
-      {/* Logo */}
-      <animated.img
-        style={logoSpring}
-        className="max-w-2xl mx-auto mt-20"
-        src={blackLogo}
-        alt="Logo"
-      />
-
-      {/* Heading */}
-      <animated.h1
-        style={headingSpring}
-        className="text-9xl text-center text-[#febc12] mt-20"
-      >
-        Welcome to our website
-      </animated.h1>
-
-      {/* Call-to-Action Section */}
-      <animated.div
-        style={ctaSpring}
-        className="ml-auto mr-5 w-2/3 py-10 flex justify-center items-center gap-10 bg-[#c14627] shadow-xl mt-20"
-      >
-        <a className="w-1/2 pl-10 text-6xl text-white cursor-pointer hover:text-gray-300">
-          Buy the latest single
-        </a>
-        <img className="max-w-sm" src={yesDay} alt="Yes Day Cover" />
-      </animated.div>
-
-      {/* Spacer to allow scrolling */}
-      <div style={{ height: "200vh" }}></div>
-    </main>
+    <div className="container mx-auto pt-28 mb-5xl max-w-5xl p-8">
+      <h2 className="text-4xl font-[Blanch-Caps] mb-6">{pageContent.title}</h2>
+      <p className="text-lg leading-relaxed mb-8">{pageContent.content}</p>
+      <Carousel images={carouselImages} />
+    </div>
   );
 }
