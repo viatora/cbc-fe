@@ -2,10 +2,19 @@ import Navbar from "./Navbar";
 import Toggle from "./Toggle";
 import { Link } from "react-router-dom";
 import bowlingBall from "../../assets/bowling-ball-toggle.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // This prevents the user scrolling when the menu is open which I think works great
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isMenuOpen]);
 
   return (
     <header className="absolute top-0 left-0 w-full bg-transparent text-white z-20 h-[6.5rem]">
