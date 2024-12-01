@@ -71,7 +71,8 @@ export default function Footer() {
             className="hover:text-clarks-orange transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-clarks-orange focus:ring-offset-2 focus:ring-offset-transparent rounded-full p-1"
             aria-label={link.label}
           >
-            <link.icon className="w-10 h-10 md:w-5 md:h-5" />
+            <link.icon className="w-5 h-5" />
+
           </a>
         ))}
       </div>
