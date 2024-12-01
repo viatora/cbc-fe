@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <main className="md:min-h-[calc(100vh-3rem)] min-h-[calc(100vh-8rem)]">
+      <main className="min-h-[calc(100vh-3rem)]">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
