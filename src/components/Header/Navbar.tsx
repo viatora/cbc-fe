@@ -23,7 +23,6 @@ const menuRoutes: MenuRoute[] = [
 ];
 
 export default function Navbar({ isMenuOpen, setIsMenuOpen }: NavbarProps) {
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isFrench } = useLanguage();
 
   console.log("Navbar rendering, language:", isFrench ? "French" : "English");
