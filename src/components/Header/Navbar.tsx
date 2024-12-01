@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
@@ -7,6 +6,11 @@ interface MenuRoute {
   path: string;
   textEN: string;
   textFR: string;
+}
+
+interface NavbarProps {
+  isMenuOpen: boolean;
+  setIsMenuOpen: (isMenuOpen: boolean) => void;
 }
 
 const menuRoutes: MenuRoute[] = [
@@ -18,8 +22,7 @@ const menuRoutes: MenuRoute[] = [
   { path: "/contact", textEN: "Contact", textFR: "Contact" },
 ];
 
-export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function Navbar({ isMenuOpen, setIsMenuOpen }: NavbarProps) {
   const { isFrench } = useLanguage();
 
   console.log("Navbar rendering, language:", isFrench ? "French" : "English");
@@ -44,7 +47,7 @@ export default function Navbar() {
       <ul
         className={`${
           isMenuOpen ? "block" : "hidden"
-        } absolute h-full left-0 w-full bg-transparent md:justify-between md:flex md:gap-[8vw] list-none md:static text-center mt-10 md:mt-0`}
+        } absolute md:h-full left-0 w-full h-screen md:bg-transparent md:justify-between md:flex md:gap-[8vw] list-none md:static text-center mt-10 md:mt-0`}
       >
         {menuRoutes.map((route) => (
           <li key={route.path} className="p-2 md:p-0 text-6xl md:text-2xl">
