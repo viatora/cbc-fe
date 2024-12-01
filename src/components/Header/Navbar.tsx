@@ -18,8 +18,8 @@ const menuRoutes: MenuRoute[] = [
   { path: "/contact", textEN: "Contact", textFR: "Contact" },
 ];
 
-export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function Navbar({ isMenuOpen, setIsMenuOpen }) {
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isFrench } = useLanguage();
 
   console.log("Navbar rendering, language:", isFrench ? "French" : "English");
@@ -44,7 +44,7 @@ export default function Navbar() {
       <ul
         className={`${
           isMenuOpen ? "block" : "hidden"
-        } absolute md:h-full left-0 w-full backdrop-blur-lg h-screen md:bg-transparent md:justify-between md:flex md:gap-[8vw] list-none md:static text-center mt-10 md:mt-0`}
+        } absolute md:h-full left-0 w-full h-screen md:bg-transparent md:justify-between md:flex md:gap-[8vw] list-none md:static text-center mt-10 md:mt-0`}
       >
         {menuRoutes.map((route) => (
           <li key={route.path} className="p-2 md:p-0 text-6xl md:text-2xl">
