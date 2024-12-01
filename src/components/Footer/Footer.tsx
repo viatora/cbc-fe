@@ -60,8 +60,8 @@ const socialLinks: SocialLink[] = [
 
 export default function Footer() {
   return (
-    <footer className="bg-transparent h-12 flex justify-center align-bottom">
-      <div className="flex flex-wrap justify-center gap-4 px-4 mb-4 h-10 align-bottom">
+    <footer className="bg-transparent h-[4.5rem] flex flex-col justify-center align-bottom">
+      <div className="flex flex-wrap justify-center gap-4 px-4 h-10 align-bottom">
         {socialLinks.map((link) => (
           <a
             key={link.label}
@@ -72,9 +72,14 @@ export default function Footer() {
             aria-label={link.label}
           >
             <link.icon className="w-5 h-5" />
-
           </a>
         ))}
+      </div>
+      <div className="flex flex-row gap-2 justify-center p-2">
+        <p>&copy; 2024</p>
+        <a href="https://viatora.co.uk" className="hover:text-clarks-orange">
+          <p>Viatora Digital &nabla;</p>
+        </a>
       </div>
     </footer>
   );
