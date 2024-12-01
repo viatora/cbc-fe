@@ -61,7 +61,7 @@ export default function Home() {
 
       {/* Mute button */}
       <button
-        className="fixed bottom-5 right-5 z-20 text-white bg-transparent border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-clarks-orange focus:ring-offset-2 focus:ring-offset-transparent rounded-full p-1 hover:text-clarks-orange"
+        className="fixed top-5 left-5 md:top-auto md:left-auto md:bottom-5 md:right-5 z-20 text-white bg-transparent border-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-clarks-orange focus:ring-offset-2 focus:ring-offset-transparent rounded-full p-1 hover:text-clarks-orange"
         onClick={toggleMute}
       >
         {muted ? <FaVolumeMute size={24} /> : <FaVolumeUp size={24} />}
