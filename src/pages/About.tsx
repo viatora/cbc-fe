@@ -15,6 +15,8 @@ const sheetTabGid = 0;
 
 export default function About() {
   const { isFrench } = useLanguage();
+  const [englishContent, setEnglishContent] = useState<Page | null>(null);
+  const [frenchContent, setFrenchContent] = useState<Page | null>(null);
   const [pageContent, setPageContent] = useState<Page | null>(null);
 
   useEffect(() => {
@@ -22,14 +24,19 @@ export default function About() {
       try {
         const csvData = await fetchSheet(sheetTabGid);
         const parsedContent = parsePageCsv<Page>(csvData);
-        setPageContent(isFrench ? parsedContent[0] : parsedContent[1]);
+        setEnglishContent(parsedContent[1]);
+        setFrenchContent(parsedContent[0]);
       } catch (error) {
         console.error("Error fetching or parsing page content:", error);
       }
     };
 
     fetchContent();
-  }, [isFrench]);
+  }, []);
+
+  useEffect(() => {
+    setPageContent(isFrench ? frenchContent : englishContent);
+  }, [isFrench, frenchContent, englishContent]);
 
   if (!pageContent) return <div>Loading...</div>;
 
