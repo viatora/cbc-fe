@@ -1,27 +1,22 @@
+import { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { Page, TourDateType } from "../utils/types";
-import parseCsv from "../utils/parseCsv";
+
 import fetchSheet from "../utils/fetchSheet";
-import { useEffect, useState } from "react";
+import parseCsv from "../utils/parseCsv";
+import parsePageCsv from "../utils/parsePageCsv";
 import dateInPast from "../utils/dateInPast";
+
 import TourDatesContainer from "../components/TourDates/TourDatesContainer";
 
-const sheetTabGid = 572869052;
-
-const french: Page = {
-  title: "Tournée",
-  content: "Venez voir Clark's Bowling Club en live, on a hâte de vous voir!",
-};
-
-const english: Page = {
-  title: "Tour",
-  content:
-    "Come and see Clark's Bowling Club play live, we can't wait to see you!",
-};
+const sheetTabGid = 127405583; // Main Tour page content
+const sheetTabGidTourDates = 572869052; // Tour dates
 
 export default function Tour() {
   const { isFrench } = useLanguage();
-  const pageContent = isFrench ? french : english;
+  const [englishContent, setEnglishContent] = useState<Page | null>(null);
+  const [frenchContent, setFrenchContent] = useState<Page | null>(null);
+  const [pageContent, setPageContent] = useState<Page | null>(null);
   const [gigs, setGigs] = useState<TourDateType[]>([]);
   const [futureGigs, setFutureGigs] = useState<TourDateType[]>([]);
   const [pastGigs, setPastGigs] = useState<TourDateType[]>([]);
@@ -29,28 +24,29 @@ export default function Tour() {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const csvData = await fetchSheet(sheetTabGid);
-        setGigs(parseCsv<TourDateType>(csvData));
+        const pageCsvData = await fetchSheet(sheetTabGid);
+        const parsedPageContent = parsePageCsv<Page>(pageCsvData);
+        setEnglishContent(parsedPageContent[1]);
+        setFrenchContent(parsedPageContent[0]);
+
+        const tourDatesCsvData = await fetchSheet(sheetTabGidTourDates);
+        const parsedGigs = parseCsv<TourDateType>(tourDatesCsvData);
+        setGigs(parsedGigs);
       } catch (error) {
-        console.error("Error fetching or parsing page content:", error);
+        console.error("Error fetching or parsing content:", error);
       }
     };
 
     fetchContent();
-  }, [isFrench]);
+  }, []);
+
+  useEffect(() => {
+    setPageContent(isFrench ? frenchContent : englishContent);
+  }, [isFrench, englishContent, frenchContent]);
 
   useEffect(() => {
     const past: TourDateType[] = [];
     const future: TourDateType[] = [];
-
-    gigs.sort((b, a) => {
-      const [dayA, monthA, yearA] = a.eventDate.split("/").map(Number);
-      const [dayB, monthB, yearB] = b.eventDate.split("/").map(Number);
-      return (
-        new Date(yearA, monthA - 1, dayA).getTime() -
-        new Date(yearB, monthB - 1, dayB).getTime()
-      );
-    });
 
     gigs.forEach((gig) => {
       if (dateInPast(gig.eventDate)) {
@@ -60,12 +56,29 @@ export default function Tour() {
       }
     });
 
+    past.sort((a, b) => {
+      const [dayA, monthA, yearA] = a.eventDate.split("/").map(Number);
+      const [dayB, monthB, yearB] = b.eventDate.split("/").map(Number);
+      return (
+        new Date(yearA, monthA - 1, dayA).getTime() -
+        new Date(yearB, monthB - 1, dayB).getTime()
+      );
+    });
+
+    future.sort((a, b) => {
+      const [dayA, monthA, yearA] = a.eventDate.split("/").map(Number);
+      const [dayB, monthB, yearB] = b.eventDate.split("/").map(Number);
+      return (
+        new Date(yearA, monthA - 1, dayA).getTime() -
+        new Date(yearB, monthB - 1, dayB).getTime()
+      );
+    });
+
     setPastGigs(past);
     setFutureGigs(future);
-
-    console.log("Past Dates:", past);
-    console.log("Future Dates:", future);
   }, [gigs]);
+
+  if (!pageContent) return <div>Loading...</div>;
 
   return (
     <div className="container mx-auto pt-28 mb-5xl max-w-5xl p-8">
