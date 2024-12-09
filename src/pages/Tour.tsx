@@ -22,8 +22,8 @@ const english: Page = {
 export default function Tour() {
   const { isFrench } = useLanguage();
   const pageContent = isFrench ? french : english;
-  const [gigs, setGigs] = useState<TourDateType[]>([]); // Use the type here
-  const [futureGigs, setFutureGigs] = useState<TourDateType[]>([]); // Use the type here
+  const [gigs, setGigs] = useState<TourDateType[]>([]);
+  const [futureGigs, setFutureGigs] = useState<TourDateType[]>([]);
   const [pastGigs, setPastGigs] = useState<TourDateType[]>([]);
 
   useEffect(() => {
@@ -43,30 +43,21 @@ export default function Tour() {
     const past: TourDateType[] = [];
     const future: TourDateType[] = [];
 
+    gigs.sort((b, a) => {
+      const [dayA, monthA, yearA] = a.eventDate.split("/").map(Number);
+      const [dayB, monthB, yearB] = b.eventDate.split("/").map(Number);
+      return (
+        new Date(yearA, monthA - 1, dayA).getTime() -
+        new Date(yearB, monthB - 1, dayB).getTime()
+      );
+    });
+
     gigs.forEach((gig) => {
       if (dateInPast(gig.eventDate)) {
         past.push(gig);
       } else {
         future.push(gig);
       }
-    });
-
-    past.sort((a, b) => {
-      const [dayA, monthA, yearA] = a.eventDate.split("/").map(Number);
-      const [dayB, monthB, yearB] = b.eventDate.split("/").map(Number);
-      return (
-        new Date(yearA, monthA - 1, dayA).getTime() -
-        new Date(yearB, monthB - 1, dayB).getTime()
-      );
-    });
-
-    future.sort((a, b) => {
-      const [dayA, monthA, yearA] = a.eventDate.split("/").map(Number);
-      const [dayB, monthB, yearB] = b.eventDate.split("/").map(Number);
-      return (
-        new Date(yearA, monthA - 1, dayA).getTime() -
-        new Date(yearB, monthB - 1, dayB).getTime()
-      );
     });
 
     setPastGigs(past);
