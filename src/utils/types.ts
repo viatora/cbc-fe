@@ -10,3 +10,12 @@ export type TourDateType = {
   locationUrl?: string;
   ticketUrl?: string;
 };
+
+export interface IFrameProps {
+  src: string;
+  title: string;
+  href?: string;
+  type?: string;
+  categorie?: string;
+  category?: string;
+}
