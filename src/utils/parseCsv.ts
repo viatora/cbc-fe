@@ -1,7 +1,8 @@
 import Papa from "papaparse";
 
 export default function parseCsv<T extends Record<string, any>>(
-  csv: string
+  csv: string,
+  isValidRow: (row: T) => boolean
 ): T[] {
   const parsed = Papa.parse<T>(csv, {
     header: true,
@@ -12,5 +13,6 @@ export default function parseCsv<T extends Record<string, any>>(
     console.error("CSV parsing errors:", parsed.errors);
     return [];
   }
-  return parsed.data.filter((row) => row.eventDate);
+
+  return parsed.data.filter(isValidRow);
 }
