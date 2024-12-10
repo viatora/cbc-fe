@@ -30,7 +30,10 @@ export default function Tour() {
         setFrenchContent(parsedPageContent[0]);
 
         const tourDatesCsvData = await fetchSheet(sheetTabGidTourDates);
-        const parsedGigs = parseCsv<TourDateType>(tourDatesCsvData);
+        const parsedGigs = parseCsv<TourDateType>(
+          tourDatesCsvData,
+          (row) => !!row.eventDate
+        );
         setGigs(parsedGigs);
       } catch (error) {
         console.error("Error fetching or parsing content:", error);
